@@ -1,11 +1,22 @@
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 5000;
+const express = require("express");
+const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Book server is running')
-})
+const mongoose = require("mongoose");
+const port = process.env.PORT || 5000;
+require("dotenv").config();
+
+async function main() {
+  await mongoose.connect(process.env.DB_URL);
+  // await mongoose.connect(process.env.DB_URL);
+  app.use("/", (req, res) => {
+    res.send("Book Store Server is running!");
+  });
+}
+// 5gra6I2a9solvHtz
+main()
+  .then(() => console.log("Mongodb connect successfully!"))
+  .catch((err) => console.log(err));
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
