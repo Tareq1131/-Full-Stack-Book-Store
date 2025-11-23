@@ -10,6 +10,7 @@ import {
 
 import avatarImg from "../assets/avatar.png";
 import { useSelector } from "react-redux";
+import { useAuth } from "../context/AuthContext";
 const navigation = [
   { name: "Dashboard", href: "/user-dashboard" },
   { name: "Orders", href: "/orders" },
@@ -20,10 +21,11 @@ const navigation = [
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const currentUser = false;
+  // const currentUser = false;
+  const {currentUser, logout} = useAuth()
 
   const handleLogOut = () => {
-    // logout()
+    logout()
   };
 
   return (
