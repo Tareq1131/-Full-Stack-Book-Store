@@ -3,11 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 // import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [message, setMessage] = useState("");
-  //   const { loginUser, signInWithGoogle } = useAuth();
+  const { loginUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -16,24 +17,20 @@ const Login = () => {
     // formState: { errors },
   } = useForm();
 
-  //   const onSubmit = async (data) => {
-  //     try {
-  //       await loginUser(data.email, data.password);
-  //       alert("Login successful!");
-  //       navigate("/");
-  //     } catch (error) {
-  //       setMessage("Please provide a valid email and password");
-  //       console.error(error);
-  //     }
-  //   };
-  const onSubmit = (data) => {
-    console.log(data);
-    setMessage("Please provide a valid email and password");
+  const onSubmit = async (data) => {
+    try {
+      await loginUser(data.email, data.password);
+      alert("Login successful!");
+      navigate("/");
+    } catch (error) {
+      setMessage("Please provide a valid email and password");
+      console.error(error);
+    }
   };
 
   const handleGoogleSignIn = async () => {
     try {
-        // await signInWithGoogle();
+      await signInWithGoogle();
       alert("Login successful!");
       navigate("/");
     } catch (error) {
