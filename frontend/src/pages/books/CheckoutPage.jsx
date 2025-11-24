@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const CheckoutPage = () => {
   const {
@@ -11,7 +12,8 @@ const CheckoutPage = () => {
     // formState: { errors },
   } = useForm();
   const [isChecked, setIsChecked] = useState(false);
-  const currentUser = true;
+  // const currentUser = true;
+  const { currentUser } = useAuth();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
 
@@ -20,7 +22,7 @@ const CheckoutPage = () => {
     .toFixed(2);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     const newOrder = {
       name: data.name,
       email: currentUser?.email,
@@ -34,7 +36,7 @@ const CheckoutPage = () => {
       productIds: cartItems.map((item) => item?._id),
       totalPrice: totalPrice,
     };
-    console.log("New Order--->",newOrder)
+    console.log("New Order--->", newOrder);
     // setIsChecked;
   };
   return (
